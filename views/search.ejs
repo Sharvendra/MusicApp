@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body style="background-color: #121212;">
+    <!-- <h1>Search</h1> -->
+<input style="color: black;" type="text" placeholder="Enter music title" name="" id="">
+<button style="color: black;" onclick="searchSong()">Search</button>
+
+<div id="right" style="width: 100%;">
+    <div class="musics">
+
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js" integrity="sha512-WrdC3CE9vf1nBf58JHepuWT4x24uTacky9fuzw2g/3L9JkihgwZ6Cfv+JGTtNyosOhEmttMtEZ6H3qJWfI7gIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+   async function searchSong(){
+   const result=await axios.post('/search',{
+        search:document.querySelector('input').value
+    }
+    )
+    console.log(result)
+    let clutter= ""
+    // src="/poster/${song.poster}"
+    result.data.songs.forEach(song=>{
+        clutter = ` <div class="card" onclick="songCardPlay('${song.fileName}')">
+          <img
+          src="https://images.unsplash.com/photo-1695653420780-468f6918d460?auto=format&fit=crop&q=80&w=1471&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="/poster/${song.poster}"
+            alt="">
+          <div class="text">
+            <h5>${song.title}</h5>
+            <p>${song.artist}</p>
+            <p>${song.album}</p>
+          </div>
+          <div class="playbutton">
+            <i class="ri-play-circle-fill"></i>
+          </div>
+        </div>`
+    })
+    document.querySelector('.musics').innerHTML=clutter
+    }
+</script>
+</body>
+</html>

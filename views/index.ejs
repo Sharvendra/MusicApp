@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="main">
+    <div id="left">
+      <button>
+        <i class="ri-home-4-line"></i>
+        <p>Home</p>
+      </button>
+      <button>
+        <!-- <a href="/search"></a> -->
+        <i class="ri-search-line"></i>
+        <!-- <p>Search</p> -->
+        <a href="/search">Search</a>
+      </button>
+    </div>
+    <div id="right">
+     <div class="musics">
+      <%currentUser.playList[0].songs.forEach(song=>{ %>
+        <!-- <h1><%= song.title%></h1> -->
+        <div class="card" onclick="songCardPlay('<%=song.fileName%>')">
+          <img
+            src="https://images.unsplash.com/photo-1695653420780-468f6918d460?auto=format&fit=crop&q=80&w=1471&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="">
+          <div class="text">
+            <h5><%=song.title%></h5>
+            <p><%=song.artist%></p>
+            <p><%=song.album%></p>
+          </div>
+          <div class="playbutton">
+            <i class="ri-play-circle-fill"></i>
+          </div>
+        </div>
+        <%})%>
+
+     </div>
+
+     <audio src="/stream/1abc079f97b8f9f0474550f0dd1fe79f90eb47a0" controls></audio>
+          
+    </div>
+  </div>
+
+  <script>
+function songCardPlay(fileName){
+  // console.log(fileName)
+
+  document.querySelector('audio').setAttribute('src',`/stream/${fileName}`)
+document.querySelector('audio').play()
+}
+
+    // document.querySelectorAll('.card').forEach(songCard =>{
+    //   songCard.addEventListener('click',(eve)=>{
+    //     console.log("click")
+    //   })
+    // })
+  </script>
+</body>
+
+</html>
